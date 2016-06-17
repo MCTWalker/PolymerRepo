@@ -1,0 +1,43 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="stylesheet" type="text/css" href="../../css/sharedStyles.html">
+
+<dom-module id="card-template">
+  <style>
+    img {
+      margin: auto;
+      max-height: 250px;
+      display: block;
+      border-radius: 5px;
+    }
+  </style>
+  <style include="shared-styles"></style>
+
+  <template>
+    <div class="card">
+      <h1>Water Bottle</h1>
+      <img src="../../images/16oz_bottle.jpg"/>
+      <span>16.9oz</span>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'card-template',
+      properties: {
+        img: {
+          type: String
+        },
+        ounces: {
+          type: String
+        },
+        favorite: {
+          type: Boolean
+        }
+      },
+
+      ready: function() {
+
+      }
+    });
+  </script>
+</dom-module>

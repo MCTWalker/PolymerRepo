@@ -1,4 +1,6 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../css/sharedStyles.html">
+<link rel="import" href="DrinkCards/cardTemplate.html">
 
 <dom-module id="my-new-view">
 
@@ -10,7 +12,8 @@
                 padding: 16px;
             }
         </style>
-        <h1>New view</h1>
+        <style include="shared-styles"></style>
+        <card-template></card-template>
     </template>
 
     <!-- Creates the element's prototype and registers it -->
