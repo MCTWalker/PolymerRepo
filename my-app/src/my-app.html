@@ -7,6 +7,7 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
+
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/app-route/app-location.html">
 <link rel="import" href="../bower_components/app-route/app-route.html">
@@ -24,7 +25,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <dom-module id="my-app">
 
   <template>
-
+    <script src="Firebase/configk-vars.js"></script>
+    <script src="Firebase/FB-connection.js"></script>
     <style>
 
       :host {
@@ -62,7 +64,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       .drawer-list a.subroute {
         padding-left: 32px;
       }
-
+      .my-button {
+        --paper-icon-button: {
+          width: 30px;
+          height: 30px;
+        }
+      }
+      .no-display {
+        display: none;
+        !important
+      }
 
     </style>
 
@@ -76,8 +87,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <app-drawer-layout fullbleed>
 
       <!-- Drawer content -->
-      <app-drawer>
-        <app-toolbar>Menu</app-toolbar>
+      <app-drawer id="drawer" >
+        <app-toolbar >
+          Menu
+          <span style="flex: 1;"></span>
+          <paper-icon-button id="btnClose" src="../../../images/cancel.svg" class="my-button" on-click="closeDrawer" ></paper-icon-button>
+        </app-toolbar>
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
           <a name="view1" href="/view1">View One</a>
           <a name="view2" href="/view2">View Two</a>
@@ -87,12 +102,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </app-drawer>
 
       <!-- Main content -->
-      <app-header-layout has-scrolling-region>
+      <app-header-layout has-scrolling-region >
 
         <app-header condenses reveals effects="waterfall">
           <app-toolbar>
             <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
-            <div title>Water Intake Tracker</div>
+            <div title>Intake Tracker</div>
+            <paper-button on-click="signOut">Sign Out</paper-button>
           </app-toolbar>
         </app-header>
 
@@ -121,9 +137,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: String,
           reflectToAttribute: true,
           observer: '_pageChanged'
-        },
-
+        }
       },
+
 
       observers: [
         '_routePageChanged(routeData.page)'
@@ -137,6 +153,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         // load page import on demand.
         this.importHref(
           this.resolveUrl('my-' + page + '.html'), null, null, true);
+      },
+
+      closeDrawer: function() {
+        this.$.drawer.close();
+      },
+
+      signOut: function() {
+        var ref = new Firebase(config.databaseURL);
+        //ref.onAuth(authDataCallback);
+        ref.unauth();
+      },
+
+      ready: function() {
+        if (window.innerWidth > 400)
+          this.$.btnClose.classList.add('no-display');
+
       }
 
     });

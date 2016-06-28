@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Sample FirebaseUI App</title>
+  <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/ui/0.4.0/firebase-ui-auth.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/0.4.0/firebase-ui-auth.css" />
+  <script src="Firebase/config-vars.js"></script>
+  <script src="Firebase/FB-connection.js"></script>
+  <script type="text/javascript">
+    // Instantiates the Firebase Auth instance.
+    var app = firebase.initializeApp(config);
+    var auth = app.auth();
+
+    var ui = new firebaseui.auth.AuthUI(auth);
+    // The start method will wait until the DOM is loaded.
+    ui.start('#firebaseui-auth-container', uiConfig);
+
+    window.onload = function() {
+      initApp()
+    };
+  </script>
+</head>
+<body>
+<h1>Welcome to Rehydrate!</h1>
+<div id="quickstart-sign-in-status"></div>
+<div id="quickstart-sign-in"></div>
+<div id="quickstart-account-details"></div>
+<div id="firebaseui-auth-container"></div>
+</body>
+</html>
